@@ -9,6 +9,8 @@ from pydirectinput import mouseDown, mouseUp
 from pynput import keyboard
 from functools import partial
 
+VER = "v0.6.2"
+
 class ClickTimer:
     def __init__(self, timeToMs:float, isMouseDown:bool):
         self._timeToMs = timeToMs
@@ -205,7 +207,7 @@ class Window:
 
     def _build_gui(self):
         self.root = Tk()
-        self.root.title("v0.6.1")
+        self.root.title(VER)
         self.root.minsize(height=0, width=250)
         self.root.resizable(False, False)
 
