@@ -305,6 +305,8 @@ class Window:
         self.waitVariField.config(state=state)
         self.startButton.config(state=state)
         self.doDoubleclickCheckbox.config(state=state)
+        self.pauseBindButton.config(state=state)
+        self.stopBindButton.config(state=state)
     
     def _set_keybind_listening(self, keybind:Keybinder|None):
         self._pauseKeybind.set_listening(keybind is self._pauseKeybind)
