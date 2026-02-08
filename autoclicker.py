@@ -9,7 +9,7 @@ from pydirectinput import mouseDown, mouseUp
 from pynput import keyboard
 from functools import partial
 
-VER = "v0.6.2"
+VER = "v0.6.3"
 
 class ClickTimer:
     def __init__(self, timeToMs:float, isMouseDown:bool):
@@ -194,6 +194,12 @@ class Window:
     UI_UPDATE_MS = 50 # 50ms = ~20 FPS
 
     def __init__(self):
+        self.root = Tk()
+        self.root.attributes('-topmost', True)
+        self.root.title(VER)
+        self.root.minsize(height=0, width=250)
+        self.root.resizable(False, False)
+
         self.autoclicker = Autoclicker()
         self.keyListener = keyboard.Listener(on_press=self.key_press)
         self._pauseKeybind = Keybinder(keyboard.Key.home)
@@ -206,14 +212,8 @@ class Window:
         self.root.mainloop()
 
     def _build_gui(self):
-        self.root = Tk()
-        self.root.title(VER)
-        self.root.minsize(height=0, width=250)
-        self.root.resizable(False, False)
-
         bindsFrame = Frame(self.root)
         bindsFrame.pack(pady=10)
-
         pauseColumn = Frame(bindsFrame)
         pauseColumn.pack(side=LEFT, padx=15)
         self.pauseBindLabel = Label(pauseColumn)
@@ -221,7 +221,6 @@ class Window:
         self.pauseBindButton = Button(pauseColumn, text=Keybinder.HINT_PASSIVE, width=16, 
             command=partial(self._set_keybind_listening, self._pauseKeybind))
         self.pauseBindButton.pack(pady=(4,0))
-
         stopColumn = Frame(bindsFrame)
         stopColumn.pack(side=LEFT, padx=15)
         self.stopBindLabel = Label(stopColumn)
@@ -229,7 +228,7 @@ class Window:
         self.stopBindButton = Button(stopColumn, text=Keybinder.HINT_PASSIVE, width=16,
             command=partial(self._set_keybind_listening, self._stopKeybind))
         self.stopBindButton.pack(pady=(4,0))
-
+   
         Label(self.root, text="Number of clicks (0 = inf)").pack(pady=(10,0))
         self.numClicksField = Entry(
             self.root,
@@ -263,7 +262,7 @@ class Window:
         checkboxFrame = Frame(self.root)
         checkboxFrame.pack(pady=(10,0))
         Label(checkboxFrame, text="Click twice?").pack(side=LEFT)
-        self._doubleclick = BooleanVar()
+        self._doubleclick = BooleanVar(value=True)
         self.doDoubleclickCheckbox = Checkbutton(checkboxFrame, variable=self._doubleclick, pady=0)
         self.doDoubleclickCheckbox.pack(side=LEFT)
         Label(self.root, text="(e.g. alching, toggling prayer...)").pack(pady=(0,10))
