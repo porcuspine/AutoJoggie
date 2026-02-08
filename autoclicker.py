@@ -172,6 +172,8 @@ class Keybinder:
         return self._assignedKey
     
     def get_key_name(self) -> str:
+        if self._assignedKey is None:
+            return "{unbound!}"
         if isinstance(self._assignedKey, keyboard.KeyCode):
             return self._assignedKey.char.upper()
         elif isinstance(self._assignedKey, keyboard.Key):
@@ -181,7 +183,7 @@ class Keybinder:
             elif name.endswith(' L'):
                 name = f"Left {name[:-2]}"
             return name
-        return "??"
+        return "err?"
     
     def get_hint(self) -> str:
         return Keybinder.HINT_ACTIVE if self.is_listening() else Keybinder.HINT_PASSIVE
@@ -203,7 +205,7 @@ class Window:
 
     def _build_gui(self):
         self.root = Tk()
-        self.root.title("v0.6.0")
+        self.root.title("v0.6.1")
         self.root.minsize(height=0, width=250)
         self.root.resizable(False, False)
 
@@ -212,7 +214,7 @@ class Window:
 
         pauseColumn = Frame(bindsFrame)
         pauseColumn.pack(side=LEFT, padx=15)
-        self.pauseBindLabel = Label(pauseColumn, text="PAUSE")
+        self.pauseBindLabel = Label(pauseColumn)
         self.pauseBindLabel.pack()
         self.pauseBindButton = Button(pauseColumn, text=Keybinder.HINT_PASSIVE, width=16, 
             command=partial(self._set_keybind_listening, self._pauseKeybind))
@@ -220,7 +222,7 @@ class Window:
 
         stopColumn = Frame(bindsFrame)
         stopColumn.pack(side=LEFT, padx=15)
-        self.stopBindLabel = Label(stopColumn, text="STOP")
+        self.stopBindLabel = Label(stopColumn)
         self.stopBindLabel.pack()
         self.stopBindButton = Button(stopColumn, text=Keybinder.HINT_PASSIVE, width=16,
             command=partial(self._set_keybind_listening, self._stopKeybind))
@@ -355,4 +357,3 @@ class Window:
 
 if __name__ == "__main__":
     window = Window()
-    window.run()
