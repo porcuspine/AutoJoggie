@@ -6,4 +6,4 @@ Author is not responsible for misuse.
 
 ## License
 
-This project is licensed under GNU GPLv3 License - see the LICENSE.md file for details.
+This project is licensed under GNU GPLv3 - see the LICENSE.md file for details.
