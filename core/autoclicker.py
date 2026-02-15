@@ -27,7 +27,7 @@ class Autoclicker:
     Execution does not begin until start() is called.
     """
 
-    UPDATE_INTERVAL_SECS = .033 ##:Time in seconds between update calls.
+    UPDATE_INTERVAL_MS = 33 ##:Time in milliseconds between update calls. 33ms = ~30 FPS.
     START_COUNTDOWN_MS = 5000 ##:Default time in milliseconds from starting the autoclicker to the first click.
     UNPAUSE_COUNTDOWN_MS = 3000 ##:Default time in milliseconds from unpausing the autoclicker to the next click.
     MOUSE_CLICK_LENGTH_RANGE_MS = (50, 125) ##:Range of time in milliseconds that a mouse click can be held down, randomized per click.
@@ -62,7 +62,7 @@ class Autoclicker:
             deltaTime = (thisUpdateTime - lastUpdateTime) * 1000
             lastUpdateTime = thisUpdateTime
             self.__update__(deltaTime)
-            time.sleep(Autoclicker.UPDATE_INTERVAL_SECS)
+            time.sleep(Autoclicker.UPDATE_INTERVAL_MS / 1000)
 
     def __update__(self, delta_ms:float):
         """

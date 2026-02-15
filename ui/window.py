@@ -5,32 +5,36 @@ handles the user's interactions with the autoclicker.
 
 from core.keybinder import Keybinder
 from core.autoclicker import Autoclicker, ClickCycleType
-from core.field_validator import FieldValidator
+from ui.field_validator import FieldValidator
 from tkinter import Tk, Frame, Label, Button, Entry, Checkbutton
 from tkinter import messagebox
 from tkinter import BooleanVar
+from tkinter import PhotoImage
 from functools import partial
 from pynput import keyboard
 from typing import Literal
 
+VER = "0.7.1"
+
 class AutoclickerWindow:
     """
-    Class to create and manage the user interface, and handle user interactions with the autoclicker.
+    Class to create and manage the user interface and facilitate user interactions with the autoclicker.
     """
 
-    UI_UPDATE_MS = 50 # 50ms = ~20 FPS
+    UI_UPDATE_MS = 50 ##:Time in milliseconds between UI updates. 50ms = ~20 FPS.
     KEYBIND_HINT_PASSIVE = "Click here to rebind" ##:Text to display on keybind buttons when not actively listening for a new keybind.
     KEYBIND_HINT_ACTIVE = "Press any key..." ##:Text to display on keybind buttons while actively listening for a new keybind.
 
-    def __init__(self, autoclicker:Autoclicker, version:str):
+    def __init__(self, autoclicker:Autoclicker, ico_path:str):
         """
         Args:
             autoclicker (Autoclicker): The Autoclicker object to manage with this UI.
-            version (str): The version string to display in the window title.
         """
 
         self.root = Tk()
-        self.root.title(f'AutoJoggie v{version}')
+        self.root.title(f'AutoJoggie v{VER}')
+        self._icon = PhotoImage(file=ico_path) ##type:ignore
+        self.root.iconphoto(True, self._icon) ##type:ignore
         self.root.minsize(height=0, width=250)
         self.root.resizable(False, False)
         self.root.attributes('-topmost', True) ##type:ignore
@@ -88,8 +92,8 @@ class AutoclickerWindow:
             self.__uiloop__()
             self.root.mainloop()
         except:
-            messagebox.showerror("Fatal Error!", "A fatal error occurred", parent=self.root)
             self.__alive__ = False
+            messagebox.showerror("Fatal Error!", "A fatal error occurred", parent=self.root)
             self.root.destroy()
             return
     
