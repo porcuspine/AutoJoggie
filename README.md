@@ -1,6 +1,6 @@
 ## Guide
 
-"Toggler" mode turns each click into a cycle of two near-sequential clicks. Among other potential uses, this mode is for the case where a user wants to repeatedly toggle a subject, such as retracting and re-casting a fishing line in the game Terraria.
+"Toggler" mode turns each click into a cycle of two near-sequential clicks. Among other potential uses, this mode is for the case where a user wants to repeatedly toggle a subject, such as retracting and re-casting a fishing line in a video game.
 
 ## Disclaimer
 
