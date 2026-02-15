@@ -174,11 +174,10 @@ class AutoclickerWindow:
 
         checkboxFrame = Frame(self.root)
         checkboxFrame.pack(pady=(10,0))
-        Label(checkboxFrame, text="Click twice?").pack(side="left")
+        Label(checkboxFrame, text="Enable \"Toggler\" mode").pack(side="left")
         self._doubleclick = BooleanVar(value=True)
         self.doDoubleclickCheckbox = Checkbutton(checkboxFrame, variable=self._doubleclick, pady=0)
         self.doDoubleclickCheckbox.pack(side="left")
-        Label(self.root, text="(e.g. alching, toggling prayer...)").pack(pady=(0,10))
 
         self.startButton = Button(self.root, text="Start", command=self._try_start, width = 10)
         self.startButton.pack(pady=(10, 0))
